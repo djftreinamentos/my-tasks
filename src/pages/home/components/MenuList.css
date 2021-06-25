@@ -1,0 +1,9 @@
+.menu-list{
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.menu-list a:hover{
+    color:brown;
+}

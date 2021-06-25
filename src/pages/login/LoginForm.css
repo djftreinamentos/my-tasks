@@ -1,0 +1,29 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.login-form input,
+.login-form label,
+.login-form button{
+    height: 35px;
+    margin-top: 2px;
+    font-size: 22px;
+}
+
+.login-form label{
+    color: #fff;
+}
+
+.login-form button{
+    margin-top: 10px;
+}
+
+.login-form h3{
+    text-align: center;
+    color: #fff;
+    font-size: 54px;
+}
