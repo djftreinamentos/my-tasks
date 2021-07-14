@@ -7,20 +7,8 @@ import UserListPage from '../pages/users/UserListPage';
 import PrivateRoute from '../components/private-route/PrivateRoute';
 import TestPage from '../pages/tests/TestPage';
 import UserFormPage from '../pages/users/UserFormPage';
-
-function Tarefas(props){
-    return (
-        <h1>Página de gerenciamento de Tarefas</h1>
-    )
-}
-
-class Formulario extends React.Component{
-    render(){
-    return (
-        <h1>Formulário de usuários</h1>
-    )
-    }
-}
+import TaskListPage from '../pages/task/TaskListPage';
+import TaskFormPage from '../pages/task/TaskFormPage';
 
 
 class MainLayout extends React.Component{
@@ -34,7 +22,8 @@ class MainLayout extends React.Component{
                     <PrivateRoute path="/" exact={true} component={HomePage} />
                     <PrivateRoute path="/admin/users" exact={true} component={UserListPage} />
                     <PrivateRoute path="/admin/users/:id" exact={true} component={UserFormPage} />
-                    <PrivateRoute path="/admin/tasks" component={Tarefas} />
+                    <PrivateRoute path="/admin/tasks" exact={true} component={TaskListPage} />
+                    <PrivateRoute path="/admin/tasks/:id" component={TaskFormPage} />
                 </Switch>
             </Router>
         )

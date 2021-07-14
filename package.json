@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "moment": "^2.29.1",
     "node-sass": "4.13.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",

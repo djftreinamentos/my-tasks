@@ -23,7 +23,7 @@ export async function post(path,body){
     const response = await fetch(path,{
         method:"POST",
         headers:headers,
-        body:body
+        body:JSON.stringify(body)
     })
     return await response.json()
 }
@@ -36,7 +36,7 @@ export async function put(path,body){
     const response = await fetch(path,{
         method:"PUT",
         headers:headers,
-        body:body
+        body:JSON.stringify(body)
     })
     return await response.json()
 }
