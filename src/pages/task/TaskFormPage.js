@@ -26,6 +26,13 @@ export default class TaskFormPage extends React.Component {
         super(props);
         this.state = {
             title: 'Tasks',
+            currentHistory:{
+                description:'',
+                user:{
+                    name:""
+                },
+                createdAt:null
+            },
             activityTypes : [
                 {label:"Selecione uma atividade", value:""},
                 {label:"Desenvolvimento", value:"DEVELOPMENT"},
@@ -86,6 +93,90 @@ export default class TaskFormPage extends React.Component {
         this.setState({currentRecord})
     }
 
+    onAddHistoryHandler = (event)=>{
+        this.setState({
+            showHistoryDialog:true
+        })
+    }
+
+    onHideHistoryDialogHandler = (event)=>{
+        this.setState({
+            showHistoryDialog:false
+        })
+    }
+
+    onChangeCurrentHistoryHandler = (event)=>{
+        const target = event.target;
+        const value = target.value;
+        const currentHistory = {...this.state.currentHistory, description:value};
+        this.setState({currentHistory});
+
+    }
+
+    onConfirmHistoryHandler = (event)=>{
+        let currentHistory = this.state.currentHistory;
+        let currentRecord = this.state.currentRecord;
+        let history = []
+        if(currentHistory.id){
+            //já existe, só preciso atualizar a lista
+            history = currentRecord.history.map(item =>{
+                if(item.id != currentHistory.id){
+                    return item
+                }else{
+                    return currentHistory
+                }
+            })
+        }else{
+            //não existe e eu preciso incluir na lista
+            currentHistory.createdAt = new Date();
+            currentHistory.id = new Date().getTime();
+            history = [...currentRecord.history, currentHistory];
+        }
+
+       
+        
+        currentRecord = {...currentRecord, history};
+        currentHistory = {
+            createdAt:null,
+            user:null,
+            description:""
+        }
+        const showHistoryDialog = false;
+        this.setState({
+            currentHistory,
+            currentRecord,
+            showHistoryDialog
+        })
+
+
+    }
+
+    onCancelHistoryHandler = ()=>{
+        const currentHistory = {
+            createdAt:null,
+            user:null,
+            description:""
+        }
+        const showHistoryDialog = false;
+        this.setState({
+            currentHistory,
+            showHistoryDialog
+        })
+    }
+
+    onRemoveHistoryHandler = (historyItem) =>{
+        const history = this.state.currentRecord.history.filter( it => it.id !== historyItem.id);
+        const currentRecord = {...this.state.currentRecord, history};
+        this.setState({currentRecord})
+    }
+
+    onEditHistoryHandler = (historyItem)=>{
+        this.setState({
+            currentHistory:historyItem,
+            showHistoryDialog:true
+        });
+    }
+
     render() {
        
         const lookupSelectionUserFooter = (
@@ -114,8 +205,8 @@ export default class TaskFormPage extends React.Component {
             footer: lookupSelectionUserFooter
         }
         return (
-            <div className="p-grid">
-                <div className="p-col-12">
+            <div className="p-grid p-justify-center">
+                <div className="p-col-10">
                     <PageHeader title={this.state.title} >
                         <Button icon="pi pi-search" className="p-button-rounded p-button-secondary" onClick={this.onListHandler} />
                         <Button icon="pi pi-check" className="p-button-rounded p-button-success" onClick={this.onSaveHandler} />
@@ -123,7 +214,7 @@ export default class TaskFormPage extends React.Component {
                         <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={this.onRemoveHandler} />
                     </PageHeader>
                 </div>
-                <div className="p-col-12">
+                <div className="p-col-10">
                     <Card>
                         <TaskForm
                             record={this.state.currentRecord}
@@ -133,6 +224,15 @@ export default class TaskFormPage extends React.Component {
                             priorityList={this.state.priorityList}
                             planningTypeList={this.state.planningTypeList}
                             onChangeField={this.onChangeField}
+                            onAddHistory={this.onAddHistoryHandler}
+                            showHistoryDialog={this.state.showHistoryDialog}
+                            onHideHistoryDialog={this.onHideHistoryDialogHandler}
+                            currentHistory={this.state.currentHistory}
+                            onChangeCurrentHistory={this.onChangeCurrentHistoryHandler}
+                            onConfirmHistory = {this.onConfirmHistoryHandler}
+                            onCancelHistory = {this.onCancelHistoryHandler}
+                            onRemoveHistory = {this.onRemoveHistoryHandler}
+                            onEditHistory = {this.onEditHistoryHandler}
                         />
                     </Card>
                 </div>

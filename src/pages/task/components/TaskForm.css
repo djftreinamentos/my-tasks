@@ -2,3 +2,16 @@
     background: #3af0aa!important;
     color: #ffffff;
 }
+
+.list-history-container{
+    width:100%;
+}
+.list-history-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-history-content{
+    padding:5px 0;
+    width: 100%;
+}
